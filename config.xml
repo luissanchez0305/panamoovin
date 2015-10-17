@@ -3,8 +3,8 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.esfera.pocketlist"
-        version   = "1.2.0">
+        id        = "com.megaesfera.panamoovin"
+        version   = "1.0.0">
 
     <name>PanaMoovin</name>
     <description>
@@ -21,7 +21,7 @@
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="permissions" value="none"/>
-    <preference name="phonegap-version" value="3.7.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version" value="5.2.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="true" />

@@ -1,3 +1,5 @@
+.project
+.settings/
 config.php
 gitcommit.bat
 gitpush.bat

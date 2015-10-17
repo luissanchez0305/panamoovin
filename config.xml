@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.esfera.pocketlist"
+        version   = "1.2.0">
+
+    <name>PanaMoovin</name>
+    <description>
+        Metrobus app
+    </description>
+
+    <author href="https://www.esferasoluciones.com" email="lsanchez@esferasoluciones.com">
+        MegaEsfera
+    </author>
+
+    <!-- Core plugins -->
+    <gap:plugin name="org.apache.cordova.file"/>
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+
+    <!-- Customize your app and platform with the preference element. -->
+    <preference name="permissions" value="none"/>
+    <preference name="phonegap-version" value="3.7.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="orientation"      value="default" />
+    <preference name="target-device"    value="universal" />
+    <preference name="fullscreen"       value="true" />
+    <preference name="webviewbounce"    value="true" />
+    <!-- Plugins -->
+
+    <!-- Define app icon for each platform. -->
+    <icon src="images/icon-hdpi.png" />
+    <icon src="images/icon-ldpi.png"   	gap:platform="android"    gap:density="ldpi" />
+    <icon src="images/icon-mdpi.png"   	gap:platform="android"    gap:density="mdpi" />
+    <icon src="images/icon-hdpi.png"   	gap:platform="android"    gap:density="hdpi" />
+    <icon src="images/icon-xhdpi.png"  	gap:platform="android"    gap:density="xhdpi" />
+    <icon src="images/icon-mdpi.png"     gap:platform="blackberry" />
+    <icon src="images/icon-mdpi.png"     gap:platform="blackberry" gap:state="hover"/>
+    <icon src="images/ios-icon-l.png"     gap:platform="ios"        width="57" height="57" />
+    <icon src="images/ios-icon-m.png"     gap:platform="ios"        width="72" height="72" />
+    <icon src="images/ios-icon-h.png"     gap:platform="ios"        width="114" height="114" />
+    <icon src="images/ios-icon-xh.png"     gap:platform="ios"        width="144" height="144" />
+    <icon src="images/webos-icon.png"     gap:platform="webos" />
+    <icon src="images/icon-hdpi.png"  	gap:platform="winphone" />
+    <icon src="images/icon-hdpi.png"		gap:platform="winphone"   gap:role="background" />
+
+    <!-- Define app splash screen for each platform. -->
+    <gap:splash src="images/introicon-ldpi.png"  	gap:platform="android" gap:density="ldpi" />
+    <gap:splash src="images/introicon-mdpipng"  	gap:platform="android" gap:density="mdpi" />
+    <gap:splash src="images/introicon-hdpi.png"  	gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="images/introicon-xhdpi.png" 	gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="images/introicon-hdpi.png"     gap:platform="blackberry" />
+    <gap:splash src="images/introicon-ldpi.png"    	gap:platform="ios"     width="320" height="480" />
+    <gap:splash src="images/introicon-mdpi.png" 	gap:platform="ios"     width="640" height="960" />
+    <gap:splash src="images/introicon-hdpi.png"     gap:platform="ios"     width="768" height="1024" />
+    <gap:splash src="images/introicon-xhdpi.png"     gap:platform="ios"     width="1024" height="768" />
+    <gap:splash src="images/introicon-hdpi.png" 	gap:platform="winphone" />
+
+    <!--
+        Define access to external domains.
+
+        <access />            - a blank access tag denies access to all external resources.
+        <access origin="*" /> - a wildcard access tag allows access to all external resource.
+
+        Otherwise, you can specify specific domains:
+    -->
+    <access origin="*"/>  <!-- allow local pages -->
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <!--
+        <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
+        <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
+    -->
+
+</widget>

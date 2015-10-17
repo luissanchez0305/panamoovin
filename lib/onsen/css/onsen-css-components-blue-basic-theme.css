@@ -393,7 +393,7 @@ h6 {
   height: 44px;
   padding-left: 0;
   padding-right: 0;
-  background: #fff;
+  background: #1863af;
   color: #1f1f21;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -1894,7 +1894,7 @@ h6 {
   font-size: 17px;
   padding: 4px 10px;
   letter-spacing: 0;
-  color: rgba(38,100,171,0.81);
+  color: #fff;
   text-shadow: 0 1px none;
   vertical-align: baseline;
   background-color: rgba(0,0,0,0);

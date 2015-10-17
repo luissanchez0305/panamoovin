@@ -41,7 +41,22 @@
     <title>Onsen UI Sliding Menu</title>
 
     <script>
-        angular.module('app', ['onsen']);
+        var app = angular.module('app', ['onsen']);
+		//Sliding menu controller, swiping management
+		app.controller('SlidingMenuController', function($scope){
+
+			$scope.checkSlidingMenuStatus = function(){
+
+				$scope.slidingMenu.on('postclose', function(){
+					$scope.slidingMenu.setSwipeable(false);
+				});
+				$scope.slidingMenu.on('postopen', function(){
+					$scope.slidingMenu.setSwipeable(true);
+				});
+			};
+
+			$scope.checkSlidingMenuStatus();
+		});
     </script>
 
     <style>
@@ -113,7 +128,7 @@
     <!-- -->
 
     <ons-sliding-menu menu-page="menu.html" main-page="page1.html" side="left"
-                      var="menu" type="reveal" max-slide-distance="260px" swipeable="true">
+                      var="menu" type="reveal" max-slide-distance="260px" swipeable="false">
     </ons-sliding-menu>
 
     <ons-template id="menu.html">
@@ -167,13 +182,13 @@
                 <div class="center">Page 1</div>
             </ons-toolbar>
 
-            <ons-row style="margin-top: 100px; text-align: center;">
+            <ons-row style=" text-align: center;">
                 <ons-col>
-                    <ons-button modifier="light" ng-click="menu.toggleMenu()">
-                        <div style="width:100px;height:100px" id="googlemap">
+                    
+							<div  style="  position: absolute;width:100%;height: 100%; margin: 0;padding: 0;z-index: -1" id="googlemap">
 							
 						</div>
-                    </ons-button>
+                    
                     
                 </ons-col>
             </ons-row>

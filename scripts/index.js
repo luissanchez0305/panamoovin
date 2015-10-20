@@ -13,6 +13,8 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
+		//Get current position
+		 navigator.geolocation.getCurrentPosition(onSuccessGPS, onErrorGPS);
     };
 
     function onPause() {
@@ -22,4 +24,16 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
+	
+	function onSuccessGPS(position) {
+		var lat = position.coords.latitude;
+		var lng = position.coords.longitude;
+        var acu = position.coords.accuracy;
+        alert(lat + ' ' + lng);
+	};
+	
+	function onErrorGPS() {
+		
+	};
+	
 } )();

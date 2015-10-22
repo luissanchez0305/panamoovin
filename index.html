@@ -12,6 +12,9 @@
     <script src="lib/onsen/js/onsenui.js"></script>
 	<script src="lib/jquery/jquery-1.11.3.min.js"></script>
 	
+	<!-- data -->
+	<script src="scripts/data_stops.js"></script>
+	<script src="scripts/core.js"></script>
 	
 	<script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js">
@@ -25,6 +28,19 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			var map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
+			
+			var marker = new google.maps.Marker({
+				position: {lat: 9.056912, lng: -79.511179},
+				map: map,
+				title: 'I´m Here'
+			  });
+			  
+			  /*var closestIndex = NearestCity(9.056912,-79.511179);
+			  var marker = new google.maps.Marker({
+				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
+				map: map,
+				title: 'Parada mas cercana!'
+			  });*/
 		});
         </script>
 

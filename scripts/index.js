@@ -29,10 +29,20 @@
 		var lat = position.coords.latitude;
 		var lng = position.coords.longitude;
         var acu = position.coords.accuracy;
-        alert(lat + ' ' + lng);
+        
+		var closestIndex = NearestCity(lat,lng);
+			  var marker = new google.maps.Marker({
+				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
+				map: map,
+				title: DATA_STOPS[closestIndex].name
+			  });
 	};
 	
 	function onErrorGPS() {
+		alert('No se pudo obtener la posicion.');
+	};
+	
+	function calculateClosestStop(lat,lng) {
 		
 	};
 	

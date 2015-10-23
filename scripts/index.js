@@ -14,7 +14,7 @@
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
 		//Get current position
-		 navigator.geolocation.getCurrentPosition(onSuccessGPS, onErrorGPS);
+		navigator.geolocation.getCurrentPosition(onSuccessGPS, onErrorGPS);
     };
 
     function onPause() {

@@ -21,41 +21,63 @@
         </script>
 		
 		<script type="text/javascript">
-		$(function(){ 
-			var mapOptions = {
+		
+			window.onload = function() {
+			var markerBounds = new google.maps.LatLngBounds();
+			//Start map
+			  var mapOptions = {
 				center: new google.maps.LatLng(9.056912, -79.511179),
 				zoom: 10,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			var map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
+			
+			google.maps.event.addListenerOnce(map, 'idle', function(){
+				// do something only the first time the map is loaded
+				navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+			});
+			
+			  var startPos;
+			  var geoOptions = {
+				enableHighAccuracy: true
+			  }
 			  
-			  /*if(typeof cordova == 'undefined'){
-				   if(navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(function(){
-					//success
-						var lat = position.coords.latitude;
-							var lng = position.coords.longitude;
-							var acu = position.coords.accuracy;
-							
-							var closestIndex = NearestCity(lat,lng);
-								  var marker = new google.maps.Marker({
-									position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
-									map: map,
-									title: DATA_STOPS[closestIndex].name
-								  });
-					}, function(err){
-					//error
-						alert('No se pudo obtener la posicion. ERROR(' + err.code + '): ' + err.message);
-					});
-				  }
-			  }*/
-			  
-			  /*var closestIndex = NearestCity(9.056912,-79.511179);
+			  var geoSuccess = function(position) {
+			 
+				startPos = position;
+				console.log(startPos.coords.latitude);
+				console.log(startPos.coords.longitude);
+				markerBounds.extend(new google.maps.LatLng(startPos.coords.latitude, startPos.coords.longitude));
+				
+			var marker = new google.maps.Marker({
+				position: {lat: startPos.coords.latitude, lng: startPos.coords.longitude},
+				map: map,
+				title: 'Here'
+			  });
+				
+			var closestIndex = NearestCity(startPos.coords.latitude,startPos.coords.longitude);
+			markerBounds.extend(new google.maps.LatLng(parseFloat(DATA_STOPS[closestIndex].lat), parseFloat(DATA_STOPS[closestIndex].lon)));
 			  var marker = new google.maps.Marker({
 				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
 				map: map,
-				title: 'Parada mas cercana!'
-			  });*/
+				title: DATA_STOPS[closestIndex].name
+			  });
+				 map.fitBounds(markerBounds);
+			  };
+			  var geoError = function(error) {
+			 
+				console.log('Error occurred. Error code: ' + error.code);
+				// error.code can be:
+				//   0: unknown error
+				//   1: permission denied
+				//   2: position unavailable (error response from location provider)
+				//   3: timed out
+			  };
+			};
+	
+		$(function(){ 
+			
+			  
 		});
         </script>
 

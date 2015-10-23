@@ -18,8 +18,8 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
     return d;
     }
 
-    var lat=initLoc.lat; // user's latitude
-    var lon=initLoc.lng; // user's longitude
+    //var lat=initLoc.lat; // user's latitude
+    //var lon=initLoc.lng; // user's longitude
    
 
     function NearestCity( latitude, longitude )
@@ -28,7 +28,7 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
         var closest;
 
         for (index = 0; index < DATA_STOPS.length; ++index) {
-            var dif =  PythagorasEquirectangular( lat, lon, DATA_STOPS[ index ].lat, DATA_STOPS[ index ].lon );
+            var dif =  PythagorasEquirectangular( latitude, longitude, DATA_STOPS[ index ].lat, DATA_STOPS[ index ].lon );
             if ( dif < mindif )
             {
                 closest=index;

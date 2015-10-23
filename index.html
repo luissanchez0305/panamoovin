@@ -28,12 +28,27 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 			var map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
-			
-			var marker = new google.maps.Marker({
-				position: {lat: 9.056912, lng: -79.511179},
-				map: map,
-				title: 'I´m Here'
-			  });
+			  
+			  /*if(typeof cordova == 'undefined'){
+				   if(navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(){
+					//success
+						var lat = position.coords.latitude;
+							var lng = position.coords.longitude;
+							var acu = position.coords.accuracy;
+							
+							var closestIndex = NearestCity(lat,lng);
+								  var marker = new google.maps.Marker({
+									position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
+									map: map,
+									title: DATA_STOPS[closestIndex].name
+								  });
+					}, function(err){
+					//error
+						alert('No se pudo obtener la posicion. ERROR(' + err.code + '): ' + err.message);
+					});
+				  }
+			  }*/
 			  
 			  /*var closestIndex = NearestCity(9.056912,-79.511179);
 			  var marker = new google.maps.Marker({

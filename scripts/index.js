@@ -38,8 +38,8 @@
 			  });
 	};
 	
-	function onErrorGPS() {
-		alert('No se pudo obtener la posicion.');
+	function onErrorGPS(err) {
+		alert('No se pudo obtener la posicion. ERROR(' + err.code + '): ' + err.message);
 	};
 	
 	function calculateClosestStop(lat,lng) {

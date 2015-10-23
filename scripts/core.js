@@ -1,5 +1,11 @@
 var initLoc = {lat: 9.056912, lng: -79.511179};
 
+var map;
+var originMarker;
+var originStop;
+var destinationMarker;
+var destinationStop;
+
  // Convert Degress to Radians
     function Deg2Rad( deg ) {
        return deg * Math.PI / 180;
@@ -42,16 +48,35 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
 		return closest;
     }
 	
+	function ResetBounds()
+	{
+		var markerBounds = new google.maps.LatLngBounds();
+		
+		if(originMarker)
+		markerBounds.extend(originMarker.position);
+		
+		if(originStop)
+		markerBounds.extend(originStop.position);
+		
+		if(destinationMarker)
+		markerBounds.extend(destinationMarker.position);
+		
+		if(destinationStop)
+		markerBounds.extend(destinationStop.position);
+		
+		map.fitBounds(markerBounds);
+	}
+	
 	function InitMap()
 	{	
-		var markerBounds = new google.maps.LatLngBounds();
+		//var markerBounds = new google.maps.LatLngBounds();
 			//Start map
 			  var mapOptions = {
 				center: new google.maps.LatLng(9.056912, -79.511179),
 				zoom: 10,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			var map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
+			map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
 			
 			google.maps.event.addListenerOnce(map, 'idle', function(){
 				// do something only the first time the map is loaded
@@ -68,22 +93,25 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
 				startPos = position;
 				console.log(startPos.coords.latitude);
 				console.log(startPos.coords.longitude);
-				markerBounds.extend(new google.maps.LatLng(startPos.coords.latitude, startPos.coords.longitude));
+				//markerBounds.extend(new google.maps.LatLng(startPos.coords.latitude, startPos.coords.longitude));
 				
-			var marker = new google.maps.Marker({
+			originMarker = new google.maps.Marker({
 				position: {lat: startPos.coords.latitude, lng: startPos.coords.longitude},
 				map: map,
-				title: 'Here'
+				title: 'Here',
+				icon: "http://maps.google.com/mapfiles/markerO.png"
 			  });
 				
 			var closestIndex = NearestCity(startPos.coords.latitude,startPos.coords.longitude);
-			markerBounds.extend(new google.maps.LatLng(parseFloat(DATA_STOPS[closestIndex].lat), parseFloat(DATA_STOPS[closestIndex].lon)));
-			  var marker = new google.maps.Marker({
+			//markerBounds.extend(new google.maps.LatLng(parseFloat(DATA_STOPS[closestIndex].lat), parseFloat(DATA_STOPS[closestIndex].lon)));
+			  originStop = new google.maps.Marker({
 				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
 				map: map,
-				title: DATA_STOPS[closestIndex].name
+				title: DATA_STOPS[closestIndex].name,
+				icon: 'http://www.google.com/mapfiles/dd-start.png'
 			  });
-				 map.fitBounds(markerBounds);
+				 //map.fitBounds(markerBounds);
+				 ResetBounds();
 			  };
 			  var geoError = function(error) {
 			 
@@ -94,4 +122,41 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
 				//   2: position unavailable (error response from location provider)
 				//   3: timed out
 			  };
+			  
+			   google.maps.event.addListener(map, "click", function(event)
+				{
+					if(destinationMarker)
+					{
+						destinationMarker.setPosition(event.latLng);
+					}
+					else
+					{
+						destinationMarker = new google.maps.Marker({
+							position: event.latLng,
+							map: map,
+							title: 'Destino',
+							icon: "http://maps.google.com/mapfiles/markerD.png"
+						  });
+					}
+					
+					var closestIndex = NearestCity(event.latLng.lat(),event.latLng.lng());
+					var LatLng = {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)};
+					
+					if(destinationStop)
+					{
+						destinationStop.setPosition(LatLng);
+					}
+					else
+					{
+						destinationStop = new google.maps.Marker({
+							position: LatLng,
+							map: map,
+							title: DATA_STOPS[closestIndex].name,
+							icon: 'http://www.google.com/mapfiles/dd-end.png'
+						  });
+					}
+					
+					ResetBounds();
+	
+				});
 	}

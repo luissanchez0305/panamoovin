@@ -259,7 +259,30 @@ function CalculateRoutes()
 	to = destinationStopId;
 	
 	$.getJSON("http://54.152.23.23/main/?from="+ from +"&to="+to, function( data ) {
-	  console.log(data);
+	  if(data)
+	  {
+		var scope = angular.element('#routeOptions').scope();
+		scope.$apply(function() {
+		//scope.object.data = value;
+		scope.groups = [];
+		console.log(data.length);
+		for(i=0; i < data.length; i++){
+			name = '';
+			for(j = 0; j < data[i].route_names.length; j++){
+				name += data[i].route_names[j] + ' ';
+			}
+			scope.groups[0] = {
+				name: 'Ruta ('+name +')',
+				total: data[i].total,
+				transfer: data[i].transfer > 1 ? "Trasbordo" : "Directo",
+				items: []
+			};
+		}
+		  for (var i = 0; i < data.length; i++) {			
+			  scope.groups[0].items.push(data[i].stop.name);
+			}
+		  });
+		}
 	});
 	
 	menu.setMainPage('steptwo.html', {closeMenu: true})

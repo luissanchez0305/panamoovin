@@ -93,6 +93,32 @@
 		  };
 
 		});
+		
+		app.controller('MyCtrl2', function($scope) {
+		  $scope.groups = [];
+		  for (var i = 0; i < 10; i++) {
+			$scope.groups[i] = {
+			  name: i,
+			  items: []
+			};
+		  }
+		  
+		  /*
+		   * if given group is the selected group, deselect it
+		   * else, select the given group
+		   */
+		  $scope.toggleGroup = function(group) {
+			if ($scope.isGroupShown(group)) {
+			  $scope.shownGroup = null;
+			} else {
+			  $scope.shownGroup = group;
+			}
+		  };
+		  $scope.isGroupShown = function(group) {
+			return $scope.shownGroup === group;
+		  };
+
+		});		
     </script>
 
     <style>
@@ -575,34 +601,13 @@ ons-list-item > ons-icon {
       </div>
 
     <br>
- <ons-list>
-
-
-
-
-        <ons-list-header>Elije su ruta</ons-list-header>
-
-        <ons-list-item modifier="chevron">
-           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
-          Ruta Tumba Muerto
-          <span class="list-item-note lucent">Trafico Pesado</span>
+ <ons-list id="routeOptions" ng-controller="MyCtrl2">
+      <div ng-repeat="group in groups">
+        <ons-list-item ng-click="toggleGroup(group)" class="title" ng-class="{active:isGroupShown(group)}">
+          {{group.name}} - {{group.total}} parada(s) - {{group.transfer}}
         </ons-list-item>
-
-        <ons-list-item modifier="chevron">
-           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
-          Ruta Corredor Sur
-          <span class="list-item-note lucent">Trafico Fluido</span>
-        </ons-list-item>
-
-        <ons-list-item modifier="chevron">
-           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
-          Ruta Corredor Norte
-          <span class="list-item-note lucent">Trafico Fluido</span>
-        </ons-list-item>
-
-       
-
-      </ons-list>
+      </div>
+    </ons-list>
     
 
     </ons-page>

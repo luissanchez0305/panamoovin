@@ -3,13 +3,49 @@ var initLoc = {lat: 9.056912, lng: -79.511179};
 var map;
 var originMarker;
 var originStop;
+var originStopId;
 var destinationMarker;
 var destinationStop;
+var destinationStopId;
 
 var directionsService;
 var directionsService2;
 var directionsDisplay;
 var directionsDisplay2;
+
+Array.prototype.where = function (filter) {
+            switch (typeof filter) {
+                case 'function':
+                    return $.grep(that, filter);
+
+                case 'object':
+                    var filtered = this;
+                    for (var prop in filter) {
+                        if (!filter.hasOwnProperty(prop)) {
+                            continue; // ignore inherited properties
+                        }
+                        filtered = $.grep(filtered, function (item) {
+                            return item[prop] === filter[prop];
+                        });
+                    }
+                    return filtered.slice(0); // copy the array
+                    // (in case of empty object filter)
+
+                default:
+                    throw new TypeError('func must be either a' +
+                        'function or an object of properties and values to filter by');
+            }
+        };
+
+        Array.prototype.firstOrDefault = function (func) {
+            return this.where(func)[0] || null;
+        };
+
+        function unique(array) {
+            return array.filter(function (el, index, arr) {
+                return index == arr.indexOf(el);
+            });
+        }
 
  // Convert Degress to Radians
     function Deg2Rad( deg ) {
@@ -115,6 +151,7 @@ var directionsDisplay2;
 			  });
 				
 			var closestIndex = NearestCity(startPos.coords.latitude,startPos.coords.longitude);
+			originStopId = parseFloat(DATA_STOPS[closestIndex].id);
 			//markerBounds.extend(new google.maps.LatLng(parseFloat(DATA_STOPS[closestIndex].lat), parseFloat(DATA_STOPS[closestIndex].lon)));
 			  originStop = new google.maps.Marker({
 				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
@@ -154,6 +191,7 @@ var directionsDisplay2;
 					}
 					
 					var closestIndex = NearestCity(event.latLng.lat(),event.latLng.lng());
+					destinationStopId = parseFloat(DATA_STOPS[closestIndex].id);
 					var LatLng = {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)};
 					
 					if(destinationStop)
@@ -174,6 +212,7 @@ var directionsDisplay2;
 					
 					calculateAndDisplayRoute(directionsService2,directionsDisplay2,destinationStop.position,destinationMarker.position);
 					GetWeatherData(LatLng.lat,LatLng.lng);
+					//CalculateRoutes(originStopId, destinationStopId);
 				});
 	}
 	
@@ -202,9 +241,50 @@ function computeTotalDistance(result) {
   console.log('te tocará caminar ' + total + ' km');
 }
 
+function CalculateRoutes()
+{
+	if(!originStopId)
+	{
+		alert('Estamos calculando si posición actual, por favor espere...');
+		return;
+	}
+
+	if(!destinationStopId)
+	{
+		alert('Por favor indique su destino. Puede marcar el destino presionando la ubicación directamente en el mapa.');
+		return;
+	}
+	
+	from = originStopId;
+	to = destinationStopId;
+	
+	$.getJSON("http://54.152.23.23/main/?from="+ from +"&to="+to, function( data ) {
+	  console.log(data);
+	});
+}
+
 function GetWeatherData(lat,lng)
 {
 	$.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng+"&APPID=8892bcb548e278178e35042773e08922", function( data ) {
 	  console.log('El clima en el destino se ve ' + data.weather[0].id + ' '+ data.weather[0].main + ' ' + data.weather[0].description);
 	});
+}
+
+function GetNodes()
+{
+	$.getJSON("http://test-panatrans.herokuapp.com/v1/trips/1", function( data ) {
+	  if(data.status == 'success')
+	  {
+	  console.log(data);
+		var nodes = '';//a:{b:3,c:1}
+		$.each(data.data.stop_sequences, function (index, ele) {
+            nodes = nodes + ele.stop.id + ':' + 1 + ','   
+        });
+		nodes = nodes.substring(0, nodes.length - 1);
+		var route = data.data.route.id + ':{'+ nodes +'}';
+		
+		console.log(route);
+	  }
+	});
+	
 }

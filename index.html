@@ -321,6 +321,12 @@ ons-list-item > ons-icon {
   font-size: 12px;
   line-height: 1.4;
 }
+.par-buttons{
+    position: absolute; 
+    text-align: center; 
+    width:100%; 
+    bottom:0px
+}
     </style>
 
 </head>
@@ -392,8 +398,12 @@ ons-list-item > ons-icon {
 							<div  style="  position: absolute;width:100%;height: 100%; margin: 0;padding: 0;z-index: -1" id="googlemap">
 							
 						</div>
-                    
-                    
+						
+						<p class="par-buttons" style="position: absolute;text-align: center; width:100%; bottom:0px">
+							<ons-button class="btn-distance" onclick="CalculateRoutes()">
+								Calcular Rutas      
+							</ons-button>
+						</p>   
                 </ons-col>
             </ons-row>
         </ons-page>
@@ -588,5 +598,6 @@ ons-list-item > ons-icon {
 
     </ons-page>
 	</ons-template>
+
 </body>
 </html>

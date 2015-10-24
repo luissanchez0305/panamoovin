@@ -6,6 +6,11 @@ var originStop;
 var destinationMarker;
 var destinationStop;
 
+var directionsService;
+var directionsService2;
+var directionsDisplay;
+var directionsDisplay2;
+
  // Convert Degress to Radians
     function Deg2Rad( deg ) {
        return deg * Math.PI / 180;
@@ -78,6 +83,13 @@ var destinationStop;
 			};
 			map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
 			
+			directionsService = new google.maps.DirectionsService;
+			directionsService2 = new google.maps.DirectionsService;
+			directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true, preserveViewport : true});
+			directionsDisplay2 = new google.maps.DirectionsRenderer({suppressMarkers: true, preserveViewport : true});
+			directionsDisplay.setMap(map);
+			directionsDisplay2.setMap(map);
+			
 			google.maps.event.addListenerOnce(map, 'idle', function(){
 				// do something only the first time the map is loaded
 				navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
@@ -112,6 +124,8 @@ var destinationStop;
 			  });
 				 //map.fitBounds(markerBounds);
 				 ResetBounds();
+				 
+				 calculateAndDisplayRoute(directionsService,directionsDisplay,originMarker.position,originStop.position);
 			  };
 			  var geoError = function(error) {
 			 
@@ -157,6 +171,33 @@ var destinationStop;
 					}
 					
 					ResetBounds();
-	
+					
+					calculateAndDisplayRoute(directionsService2,directionsDisplay2,destinationStop.position,destinationMarker.position);
+					
 				});
 	}
+	
+	function calculateAndDisplayRoute(ds, dd, o, f) {
+		  ds.route({
+			origin: o,
+			destination: f,
+			travelMode: google.maps.TravelMode.WALKING 
+		  }, function(response, status) {
+			if (status === google.maps.DirectionsStatus.OK) {
+			  dd.setDirections(response);
+			  computeTotalDistance(response);
+			} else {
+			  console.log('Directions request failed due to ' + status);
+			}
+		  });
+}
+
+function computeTotalDistance(result) {
+  var total = 0;
+  var myroute = result.routes[0];
+  for (var i = 0; i < myroute.legs.length; i++) {
+    total += myroute.legs[i].distance.value;
+  }
+  total = total / 1000;
+  console.log('te tocará caminar ' + total + ' km');
+}

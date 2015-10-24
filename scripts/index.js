@@ -13,6 +13,8 @@
         document.addEventListener( 'resume', onResume.bind( this ), false );
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
+		//Get current position
+		InitMap();
     };
 
     function onPause() {
@@ -22,4 +24,5 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
+	
 } )();

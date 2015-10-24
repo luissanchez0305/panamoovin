@@ -12,20 +12,24 @@
     <script src="lib/onsen/js/onsenui.js"></script>
 	<script src="lib/jquery/jquery-1.11.3.min.js"></script>
 	
+	<!-- data -->
+	<script src="scripts/data_stops.js"></script>
+	<script src="scripts/core.js"></script>
 	
-	<script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js">
-        </script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqBaap06RoJ86UNwyr12XlM4rAvElgXkI"></script>
 		
 		<script type="text/javascript">
-		$(function(){ 
-			var mapOptions = {
-				center: new google.maps.LatLng(9.056912, -79.511179),
-				zoom: 10,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+		
+			window.onload = function() {
+			//var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+			if (typeof Device != 'undefined') {
+				// PhoneGap application
+				//Phonegap iniciara el mapa cuando onDeviceReady
+			} else {
+				// Web page
+				InitMap();
+			}
 			};
-			var map = new google.maps.Map(document.getElementById("googlemap"), mapOptions);
-		});
         </script>
 
     <!-- CSS dependencies -->
@@ -117,6 +121,206 @@
             .bottom-menu-item:active {
                 background-color: rgba(255, 255, 255, 0.1);
             }
+			
+			.form-row {
+			  margin: 4px;
+			}
+
+			.width-full {
+			  width: 100%;
+			}
+
+			.width-half {
+			  width: 48%;
+			}
+
+			.lucent {
+			  opacity: 0.4;
+			}
+
+			.note {
+			  margin: 12px 8px;
+			  font-size: 13px;
+			}
+
+			.vspc {
+			  margin-top: 20px;
+			}
+
+			.formarea {
+			  width: 90%;
+			  margin: 50px auto 0px auto;
+			}
+
+			input[type=text],
+			input[type=password] {
+			  height: 40px;
+			  padding-top: 10px;
+			  padding-bottom: 10px;
+			}
+			.profile-card {
+  width: 100%;
+  text-align: center;
+  color: 575757;
+  padding: 30px 0;
+  line-height: 1.4;
+  background-color: #d1e2f6;
+}
+
+.profile-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  background-color: black;
+  border 1px solid white;
+  box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+}
+
+.profile-name {
+  margin: 20px 0 0 0;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.profile-id {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.profile-desc {
+  font-size: 15px;
+  opacity: 0.6;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.info-col {
+  height: 60px;
+  line-height: 1;
+  padding: 12px 0 12px 4px;
+}
+
+.info-num {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.info-unit {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.4;
+}
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+input[type=email], input[type=password] {
+  display: block;
+  width: 100%;
+border:1px solid #747d87;
+  margin: 0 auto;
+  outline: none;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background-color: #e5e9ef;{
+
+
+}
+
+.login-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.forgot-password {
+  display: block;
+  margin: 8px auto 0 auto;
+  font-size: 14px;
+}
+ons-list-item > ons-icon {
+  margin: 0 4px 0 0;
+  opacity: 0.8;
+}
+
+.list-item-action {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  font-size: 20px;
+  opacity: 0.3;
+}
+
+.list-item-action > ons-icon {
+  margin-top: 14px;
+}
+
+.list-item-note {
+  position: absolute;
+  right: 36px;
+  top: 0px;
+  font-size: 14px;
+}
+
+.list-item-note > .notification {
+  margin-top: 12px;
+}
+
+.lucent {
+  opacity: 0.4;
+}
+.plan-list {
+  border-top: none;
+  background-image: none !important;
+}
+
+.plan {
+  line-height: 1;
+  padding: 0;
+}
+
+.plan-left {
+  text-align: right;
+  padding: 10px 10px 10px 0;
+}
+
+.plan-center {
+  background-color: #3399ff;
+  opacity: 0.5;
+}
+
+.plan-right {
+  padding: 10px 40px 10px 10px;
+}
+
+.plan-date {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.plan-duration {
+  font-size: 11px;
+  opacity: 0.4;
+}
+
+.plan-name {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.plan-info {
+  opacity: 0.4;
+  font-size: 12px;
+  line-height: 1.4;
+}
     </style>
 
 </head>
@@ -217,5 +421,172 @@
 
         </ons-page>
     </ons-template>
+	
+	<ons-template id="OriginDestination.html">
+	 <ons-page>
+      <ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center"><img src="img/logo_app.png" style="padding-top: 9px;"></div>
+      </ons-toolbar>
+
+      <div class="formarea">
+		<div class="center" style=" margin: 0;padding: 0"><img src="img/icon_bus.jpg" style="padding-top: 9px;margin-bottom:20px"></div>
+        <div class="form-row">
+	
+          <input type="text" class="text-input--underbar width-full" placeholder="Origen" value="">
+        </div>
+
+        <div class="form-row">
+          <input type="text" class="text-input--underbar width-full" placeholder="Destino" value="">
+        </div>
+
+        <div class="lucent">
+          <p class="note">¿Desea dirigirse a este destino?</p>
+        </div>
+
+        <div class="vspc form-row">
+          <button class="button button--cta">Sí</button>
+		  <button class="button button--light">No</button>
+        </div>
+      </div>
+
+    </ons-page>
+	</ons-template>
+	<ons-template id="stepone.html">
+	 <ons-page>
+<ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Profile</div>
+        <div class="right">
+          <ons-toolbar-button><ons-icon icon="ion-gear-a" style="vertical-align: -4px; font-size: 28px;"></ons-icon></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+
+   <div class="profile-card">
+
+        <img src="img/icon-one.png">
+        <div class="profile-name">Favor Elija Su Destino</div>
+        <div class="profile-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo augue eget elit imperdiet cursus. Praesent maximus sit amet orci sed hendrerit.</div>
+
+      </div>
+
+
+     <div class="login-form">
+ <input type="email" class="text-input--underbar" placeholder="Elegir Punto de Salida" value="">
+<input type="password" class="text-input--underbar" placeholder="Elegir Punto de Destino" value="">
+        <br><br>
+        <button class="button">Aplicar Ruta</button>
+<button class="button button--outline"">Cancel</button>
+      </div>
+
+    
+
+    </ons-page>
+	</ons-template>
+<ons-template id="steptwo.html">
+	 <ons-page>
+<ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Profile</div>
+        <div class="right">
+          <ons-toolbar-button><ons-icon icon="ion-gear-a" style="vertical-align: -4px; font-size: 28px;"></ons-icon></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+
+   <div class="profile-card">
+
+       <img src="img/icon-two.png">
+        <div class="profile-name">Favor Elija la Ruta</div>
+        <div class="profile-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo augue eget elit imperdiet cursus. Praesent maximus sit amet orci sed hendrerit.</div>
+
+      </div>
+
+    <br>
+ <ons-list>
+
+
+
+
+        <ons-list-header>Elije su ruta</ons-list-header>
+
+        <ons-list-item modifier="chevron">
+           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
+          Ruta Tumba Muerto
+          <span class="list-item-note lucent">Trafico Pesado</span>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron">
+           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
+          Ruta Corredor Sur
+          <span class="list-item-note lucent">Trafico Fluido</span>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron">
+           <ons-icon icon="ion-log-out" style="opacity: 0.8"></ons-icon>
+          Ruta Corredor Norte
+          <span class="list-item-note lucent">Trafico Fluido</span>
+        </ons-list-item>
+
+       
+
+      </ons-list>
+    
+
+    </ons-page>
+	</ons-template>
+<ons-template id="stepthree.html">
+	 <ons-page>
+<ons-toolbar>
+        <div class="left"><ons-back-button>Back</ons-back-button></div>
+        <div class="center">Profile</div>
+        <div class="right">
+          <ons-toolbar-button><ons-icon icon="ion-gear-a" style="vertical-align: -4px; font-size: 28px;"></ons-icon></ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+
+   <div class="profile-card">
+
+                <img src="img/icon-three.png">
+        <div class="profile-name">Favor Elija El Bus</div>
+        <div class="profile-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo augue eget elit imperdiet cursus. Praesent maximus sit amet orci sed hendrerit.</div>
+
+      </div>
+
+    <br>
+ <ons-list>
+
+
+
+
+        <ons-list-header>Elije su ruta</ons-list-header>
+
+    <ons-list-item modifier="chevron">
+           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
+          Tumba Muerto - Don Bosco
+          <span class="list-item-note lucent">Cada 20 Minutos</span>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron">
+           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
+          Tumba Muerto - Don Bosco
+          <span class="list-item-note lucent">Cada 20 Minutos</span>
+        </ons-list-item>
+
+        <ons-list-item modifier="chevron">
+           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
+          Tumba Muerto - San Miguelito
+          <span class="list-item-note lucent">Cada 30 Minutos</span>
+        </ons-list-item>
+
+       
+
+      </ons-list>
+    
+
+    </ons-page>
+	</ons-template>
 </body>
 </html>

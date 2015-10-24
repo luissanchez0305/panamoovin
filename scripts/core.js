@@ -111,7 +111,7 @@ var directionsDisplay2;
 				position: {lat: startPos.coords.latitude, lng: startPos.coords.longitude},
 				map: map,
 				title: 'Here',
-				icon: "http://maps.google.com/mapfiles/markerO.png"
+				icon: "http://www.megacorestudio.com/icons_panamoovin/walk.png"
 			  });
 				
 			var closestIndex = NearestCity(startPos.coords.latitude,startPos.coords.longitude);
@@ -120,7 +120,7 @@ var directionsDisplay2;
 				position: {lat: parseFloat(DATA_STOPS[closestIndex].lat), lng: parseFloat(DATA_STOPS[closestIndex].lon)},
 				map: map,
 				title: DATA_STOPS[closestIndex].name,
-				icon: 'http://www.google.com/mapfiles/dd-start.png'
+				icon: 'http://www.megacorestudio.com/icons_panamoovin/stop.png'
 			  });
 				 //map.fitBounds(markerBounds);
 				 ResetBounds();
@@ -149,7 +149,7 @@ var directionsDisplay2;
 							position: event.latLng,
 							map: map,
 							title: 'Destino',
-							icon: "http://maps.google.com/mapfiles/markerD.png"
+							icon: "http://www.megacorestudio.com/icons_panamoovin/finish.png"
 						  });
 					}
 					
@@ -166,14 +166,14 @@ var directionsDisplay2;
 							position: LatLng,
 							map: map,
 							title: DATA_STOPS[closestIndex].name,
-							icon: 'http://www.google.com/mapfiles/dd-end.png'
+							icon: 'http://www.megacorestudio.com/icons_panamoovin/stop.png'
 						  });
 					}
 					
 					ResetBounds();
 					
 					calculateAndDisplayRoute(directionsService2,directionsDisplay2,destinationStop.position,destinationMarker.position);
-					
+					GetWeatherData(LatLng.lat,LatLng.lng);
 				});
 	}
 	
@@ -200,4 +200,11 @@ function computeTotalDistance(result) {
   }
   total = total / 1000;
   console.log('te tocará caminar ' + total + ' km');
+}
+
+function GetWeatherData(lat,lng)
+{
+	$.getJSON("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lng+"&APPID=8892bcb548e278178e35042773e08922", function( data ) {
+	  console.log('El clima en el destino se ve ' + data.weather[0].id + ' '+ data.weather[0].main + ' ' + data.weather[0].description);
+	});
 }

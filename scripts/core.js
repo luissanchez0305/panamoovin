@@ -261,6 +261,8 @@ function CalculateRoutes()
 	$.getJSON("http://54.152.23.23/main/?from="+ from +"&to="+to, function( data ) {
 	  console.log(data);
 	});
+	
+	menu.setMainPage('steptwo.html', {closeMenu: true})
 }
 
 function GetWeatherData(lat,lng)
@@ -287,4 +289,45 @@ function GetNodes()
 	  }
 	});
 	
+}
+
+function GetTripDetails(trip,from,to)
+{
+	//http://54.152.23.23/main/trip.php?trip=73&from=147&to=145
+	$.getJSON("http://54.152.23.23/main/trip.php?trip=73&from=147&to=145", function( data ) {
+	  if(data)
+	  {
+		var scope = angular.element('#routeDetails').scope();
+		scope.$apply(function() {
+		//scope.object.data = value;
+		scope.groups = [];
+		scope.groups[0] = {
+			  name: 'Ruta ('+data.length +')',
+			  items: []
+			};
+		  for (var i = 0; i < data.length; i++) {			
+			  scope.groups[0].items.push(data[i].stop.name);
+			}
+		  });
+		}
+	});
+}
+
+function UpdateRouteList()
+{
+	var scope = angular.element('#routeDetails').scope();
+	//wrap changes in an apply call to make sure view and model are consistent
+	scope.$apply(function() {
+		//scope.object.data = value;
+		scope.groups = [];
+		  for (var i = 0; i < 2; i++) {
+			scope.groups[i] = {
+			  name: i,
+			  items: []
+			};
+			for (var j = 0; j < 2; j++) {
+			  scope.groups[i].items.push(i + '-' + j);
+			}
+		  }
+	});
 }

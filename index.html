@@ -6,11 +6,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
 
+	<script src="lib/jquery/jquery-1.11.3.min.js"></script>
     <!-- JS dependencies (order matters!) -->
     <script src="scripts/platformOverrides.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
-	<script src="lib/jquery/jquery-1.11.3.min.js"></script>
+	
 	
 	<!-- data -->
 	<script src="scripts/data_stops.js"></script>
@@ -60,6 +61,37 @@
 			};
 
 			$scope.checkSlidingMenuStatus();
+		});
+		
+		app.controller('MyCtrl', function($scope) {
+		  $scope.groups = [];
+		  for (var i = 0; i < 10; i++) {
+			$scope.groups[i] = {
+			  name: i,
+			  items: []
+			};
+			for (var j = 0; j < 3; j++) {
+			  $scope.groups[i].items.push(i + '-' + j);
+			}
+		  }
+		  
+		  
+
+		  /*
+		   * if given group is the selected group, deselect it
+		   * else, select the given group
+		   */
+		  $scope.toggleGroup = function(group) {
+			if ($scope.isGroupShown(group)) {
+			  $scope.shownGroup = null;
+			} else {
+			  $scope.shownGroup = group;
+			}
+		  };
+		  $scope.isGroupShown = function(group) {
+			return $scope.shownGroup === group;
+		  };
+
 		});
     </script>
 
@@ -327,6 +359,35 @@ ons-list-item > ons-icon {
     width:100%; 
     bottom:0px
 }
+
+.list__item {
+  min-height: 0px;
+}
+
+.item-accordion {
+  line-height: 37px;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.07s all linear;
+}
+
+.item-accordion.ng-hide {
+  line-height: 0px;
+}
+
+.item-accordion.ng-hide-add,
+.item-accordion.ng-hide-remove {
+  display: block !important;
+}
+
+.title {
+  background: #F5F5F5;
+}
+
+.active {
+  background: #EFEFEF;
+}
+
     </style>
 
 </head>
@@ -547,10 +608,11 @@ ons-list-item > ons-icon {
     </ons-page>
 	</ons-template>
 <ons-template id="stepthree.html">
+<ons-navigator title="Navigator" var="myNavigator">
 	 <ons-page>
 <ons-toolbar>
         <div class="left"><ons-back-button>Back</ons-back-button></div>
-        <div class="center">Profile</div>
+        <div class="center">Ruta</div>
         <div class="right">
           <ons-toolbar-button><ons-icon icon="ion-gear-a" style="vertical-align: -4px; font-size: 28px;"></ons-icon></ons-toolbar-button>
         </div>
@@ -560,43 +622,28 @@ ons-list-item > ons-icon {
    <div class="profile-card">
 
                 <img src="img/icon-three.png">
-        <div class="profile-name">Favor Elija El Bus</div>
-        <div class="profile-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque commodo augue eget elit imperdiet cursus. Praesent maximus sit amet orci sed hendrerit.</div>
+        <div class="profile-name">Detalle de la Ruta</div>
+        <div class="profile-desc">A continuaciónse presentan el detalle de las paradas de esta ruta.</div>
 
       </div>
 
     <br>
- <ons-list>
-
-
-
-
-        <ons-list-header>Elije su ruta</ons-list-header>
-
-    <ons-list-item modifier="chevron">
-           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
-          Tumba Muerto - Don Bosco
-          <span class="list-item-note lucent">Cada 20 Minutos</span>
+ <ons-list id="routeDetails" ng-controller="MyCtrl">
+      <div ng-repeat="group in groups">
+        <ons-list-item ng-click="toggleGroup(group)" class="title" ng-class="{active:isGroupShown(group)}">
+          <ons-icon icon="minus-square-o" ng-if="isGroupShown(group)"></ons-icon>
+          <ons-icon icon="plus-square-o" ng-if="!isGroupShown(group)"></ons-icon>
+          Group {{group.name}}
         </ons-list-item>
-
-        <ons-list-item modifier="chevron">
-           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
-          Tumba Muerto - Don Bosco
-          <span class="list-item-note lucent">Cada 20 Minutos</span>
+        <ons-list-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)">
+          {{item}}
         </ons-list-item>
-
-        <ons-list-item modifier="chevron">
-           <ons-icon icon="fa-map-marker" style="opacity: 0.8"></ons-icon>
-          Tumba Muerto - San Miguelito
-          <span class="list-item-note lucent">Cada 30 Minutos</span>
-        </ons-list-item>
-
-       
-
-      </ons-list>
+      </div>
+    </ons-list>
     
 
     </ons-page>
+	</ons-navigator>
 	</ons-template>
 
 </body>

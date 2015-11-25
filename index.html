@@ -486,8 +486,8 @@ ons-list-item > ons-icon {
 							
 						</div>
 						
-						<p class="par-buttons" style="position: absolute;text-align: center; width:100%; bottom:0px">
-							<ons-button class="btn-distance" onclick="CalculateRoutes()">
+						<p class="par-buttons" style="position: absolute;text-align: center; width:50%; bottom:0px">
+							<ons-button class="btn-distance" onclick="CalculateRoutes()" style="margin-left:80%">
 								Calcular Rutas      
 							</ons-button>
 						</p>   
@@ -603,7 +603,7 @@ ons-list-item > ons-icon {
     <br>
  <ons-list id="routeOptions" ng-controller="MyCtrl2">
       <div ng-repeat="group in groups">
-        <ons-list-item ng-click="toggleGroup(group)" class="title" ng-class="{active:isGroupShown(group)}">
+        <ons-list-item ng-click="toggleGroup(group)" class="title" onclick="GetTripDetails()" ng-class="{active:isGroupShown(group)}">
           {{group.name}} - {{group.total}} parada(s) - {{group.transfer}}
         </ons-list-item>
       </div>

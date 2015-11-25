@@ -285,7 +285,7 @@ function CalculateRoutes()
 		}
 	});
 	
-	menu.setMainPage('steptwo.html', {closeMenu: true})
+	menu.setMainPage('steptwo.html', {closeMenu: true});
 }
 
 function GetWeatherData(lat,lng)
@@ -316,6 +316,7 @@ function GetNodes()
 
 function GetTripDetails(trip,from,to)
 {
+	menu.setMainPage('stepthree.html', {closeMenu: true});
 	//http://54.152.23.23/main/trip.php?trip=73&from=147&to=145
 	$.getJSON("http://54.152.23.23/main/trip.php?trip=73&from=147&to=145", function( data ) {
 	  if(data)

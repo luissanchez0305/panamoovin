@@ -243,7 +243,8 @@ function computeTotalDistance(result) {
 
 function CalculateRoutes()
 {
-	if(!originStopId)
+	
+	/*if(!originStopId)
 	{
 		alert('Estamos calculando si posición actual, por favor espere...');
 		return;
@@ -256,14 +257,26 @@ function CalculateRoutes()
 	}
 	
 	from = originStopId;
-	to = destinationStopId;
-	
-	$.getJSON("http://54.152.23.23/main/?from="+ from +"&to="+to, function( data ) {
+	to = destinationStopId;*/
+	$('#routes').show();
+	var scope = angular.element('#routeOptions').scope();
+		scope.$apply(function() {
+		scope.routes = [];
+		scope.routes[0] = {
+				name: 'Transfer – Chilibre – Gran Estación',
+				total: 10,
+				transfer: 'Directo'
+			};
+		scope.routes[1] = {
+				name: 'Transfer – Alcalde Díaz – Gran Estación ',
+				total: 5,
+				transfer: 'Directo'
+			};
+	/*$.getJSON("http://54.152.23.23/main/?from="+ from +"&to="+to, function( data ) {
 	  if(data)
 	  {
 		var scope = angular.element('#routeOptions').scope();
 		scope.$apply(function() {
-		//scope.object.data = value;
 		scope.groups = [];
 		console.log(data.length);
 		for(i=0; i < data.length; i++){
@@ -282,10 +295,10 @@ function CalculateRoutes()
 			  scope.groups[0].items.push(data[i].stop.name);
 			}
 		  });
-		}
+		}*/
 	});
 	
-	menu.setMainPage('steptwo.html', {closeMenu: true});
+	//menu.setMainPage('steptwo.html', {closeMenu: true});
 }
 
 function GetWeatherData(lat,lng)

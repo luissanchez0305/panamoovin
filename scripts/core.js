@@ -244,7 +244,7 @@ function computeTotalDistance(result) {
 function CalculateRoutes()
 {
 	
-	/*if(!originStopId)
+	if(!originStopId)
 	{
 		alert('Estamos calculando si posición actual, por favor espere...');
 		return;
@@ -257,7 +257,8 @@ function CalculateRoutes()
 	}
 	
 	from = originStopId;
-	to = destinationStopId;*/
+	to = destinationStopId;
+	
 	$('#routes').show();
 	var scope = angular.element('#routeOptions').scope();
 		scope.$apply(function() {
